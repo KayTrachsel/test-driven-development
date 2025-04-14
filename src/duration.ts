@@ -1,4 +1,18 @@
 export function formatDuration(seconds: number): string {
-  console.log(seconds);
-  return `${seconds}s`;
+  if (seconds < 0) {
+    throw new Error("duration must be positive");
+  }
+
+  seconds = Math.round(seconds);
+  const h = Math.floor(seconds / 3600);
+  seconds %= 3600;
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+
+  let result = "";
+  if (h > 0) result += `${h}h`;
+  if (m > 0) result += `${m}m`;
+  if (s > 0 || result === "") result += `${s}s`;
+
+  return result;
 }
